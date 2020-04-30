@@ -23,7 +23,7 @@ class Provider extends AbstractProvider implements ProviderInterface
      */
     protected $scopes = ['user_profile'];
 
-    protected $fields = 'username,account_type,media_count,media';
+    protected $fields = 'username,account_type';
 
     /**
      * {@inheritdoc}
@@ -49,6 +49,19 @@ class Provider extends AbstractProvider implements ProviderInterface
     protected function getRefreshLongTermTokenUrl()
     {
         return 'https://graph.instagram.com/refresh_access_token';
+    }
+    
+   /**
+     * Set the user fields to request from Instagram.
+     *
+     * @param  array  $fields
+     * @return $this
+     */
+    public function fields(array $fields)
+    {
+        $this->fields = $fields;
+
+        return $this;
     }
 
     /**
@@ -85,7 +98,6 @@ class Provider extends AbstractProvider implements ProviderInterface
                 'nickname' => $user['username'],
                 'name' => $user['username'],
                 'account_type' => $user['account_type'],
-                'media' => $user['media']['data'],
                 'avatar' => null,
             ]
         );
