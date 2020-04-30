@@ -31,6 +31,19 @@ class Provider extends AbstractProvider
             'https://api.instagram.com/oauth/authorize', $state
         );
     }
+    
+     /**
+     * Set the user fields to request from Instagram.
+     *
+     * @param  array  $fields
+     * @return $this
+     */
+    public function fields(array $fields)
+    {
+        $this->fields = $fields;
+
+        return $this;
+    }
 
     /**
      * {@inheritdoc}
@@ -70,8 +83,8 @@ class Provider extends AbstractProvider
     {
         return (new User())->setRaw($user)->map([
             'id'     => $user['id'], 'nickname' => $user['username'],
-            'name'   => $user['full_name'], 'email' => null,
-            'avatar' => $user['profile_picture'],
+            'name'   => null, 'email' => null,
+            'avatar' => null
         ]);
     }
 
